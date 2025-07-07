@@ -41,7 +41,7 @@ class ImageSearchEngine:
         self.features_db = feature_data.astype(np.float32)
         
         categories = np.unique(self.labels)
-        print(f"Index construit: {len(self.image_paths)} images")
+        print(f"Index: {len(self.image_paths)} images")
         print(f"Catégories: {categories}")
         print(f"Features: {self.features_db.shape[1]} dimensions")
         

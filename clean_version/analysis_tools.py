@@ -27,20 +27,20 @@ class CompressionImpactAnalyzer:
     
     def setup_baseline(self, split: str = "train"):
         """Configure le moteur de recherche de référence"""
-        print("Configuration du moteur de recherche baseline...")
+        print("Configuration baseline...")
         self.baseline_engine = ImageSearchEngine(self.data_path)
         self.baseline_engine.build_index(split=split)
-        print(f"Baseline prêt: {len(self.baseline_engine.image_paths)} images")
+        print(f"Baseline: {len(self.baseline_engine.image_paths)} images")
     
     def evaluate_compression_methods(self, sample_images: List[str]) -> pd.DataFrame:
         """Évalue les méthodes de compression"""
-        print("Évaluation des méthodes de compression...")
+        print("Évaluation compression...")
         
         results = []
         
         for i, img_path in enumerate(sample_images):
             if i % 5 == 0:
-                print(f"   Progress: {i+1}/{len(sample_images)}")
+                print(f"   {i+1}/{len(sample_images)}")
             
             full_path = Path("data/ImageSearch") / img_path
             if not full_path.exists():
@@ -63,10 +63,10 @@ class CompressionImpactAnalyzer:
         df = pd.DataFrame(results)
         
         if not df.empty:
-            print(f"{len(df)} mesures de compression collectées")
+            print(f"{len(df)} mesures collectées")
             summary = df.groupby('method')[self.metrics['compression_quality'] + 
                                           self.metrics['compression_performance']].mean()
-            print("\nRésumé compression par méthode:")
+            print("\nRésumé par méthode:")
             print(summary.round(3))
         
         return df
@@ -77,11 +77,11 @@ class CompressionImpactAnalyzer:
         valid_paths = []
         valid_labels = []
         
-        print(f"Création index compressé pour {compression_method.name}...")
+        print(f"Index {compression_method.name}...")
         
         for i, img_path in enumerate(sample_images):
             if i % 10 == 0:
-                print(f"   Features: {i+1}/{len(sample_images)}")
+                print(f"   {i+1}/{len(sample_images)}")
             
             try:
                 full_path = Path("data/ImageSearch") / img_path
@@ -109,7 +109,7 @@ class CompressionImpactAnalyzer:
         
         if features_list:
             features_db = np.vstack(features_list)
-            print(f"Index compressé: {features_db.shape}")
+            print(f"Index: {features_db.shape}")
             return CompressedImageSearchEngine(features_db, valid_paths, valid_labels)
         else:
             return None
@@ -119,16 +119,16 @@ class CompressionImpactAnalyzer:
         if self.baseline_engine is None:
             raise ValueError("Baseline non configuré. Appelez setup_baseline() d'abord.")
         
-        print("Analyse d'impact sur la recherche d'images...")
+        print("Analyse impact recherche...")
         
-        print("   Mesure baseline...")
+        print("   Baseline...")
         baseline_quality = self.baseline_engine.evaluate_search_quality(num_queries)
         baseline_speed = self.baseline_engine.benchmark_speed(num_queries)
         
         results = []
         
         for method in self.compression_evaluator.methods:
-            print(f"   Test {method.name}...")
+            print(f"   {method.name}...")
             
             try:
                 compressed_engine = self.create_compressed_search_index(method, sample_images)
@@ -161,25 +161,25 @@ class CompressionImpactAnalyzer:
                       f"(perte: {accuracy_loss:.3f})")
                 
             except Exception as e:
-                print(f"      Erreur {method.name}: {e}")
+                print(f"      Erreur: {e}")
                 continue
         
         df = pd.DataFrame(results)
         
         if not df.empty:
-            print(f"{len(df)} analyses d'impact terminées")
+            print(f"{len(df)} analyses terminées")
         
         return df
     
     def run_complete_analysis(self, max_images: int = 30, num_queries: int = 15) -> Dict[str, pd.DataFrame]:
         """Lance l'analyse complète"""
-        print("ANALYSE COMPLETE - COMPRESSION POUR RECHERCHE D'IMAGES")
-        print("="*60)
+        print("ANALYSE COMPLETE")
+        print("="*40)
         
         if self.baseline_engine is None:
             self.setup_baseline()
         
-        print(f"\nSélection échantillon de {max_images} images...")
+        print(f"Échantillon: {max_images} images")
         all_paths = list(self.baseline_engine.image_paths)
         if len(all_paths) > max_images:
             sample_paths = []
@@ -191,7 +191,7 @@ class CompressionImpactAnalyzer:
         else:
             sample_paths = all_paths
         
-        print(f"Échantillon: {len(sample_paths)} images")
+        print(f"Images: {len(sample_paths)}")
         
         compression_results = self.evaluate_compression_methods(sample_paths)
         search_impact_results = self.analyze_search_impact(sample_paths, num_queries)
