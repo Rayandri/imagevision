@@ -66,9 +66,48 @@ Ou bien, en Python :
 
 ## Résultats principaux
 
+**Meilleure méthode identifiée : PNG_Lossless**
+- Perte de précision minimale : 0.400 (précision maintenue : 0.500)
+- Compression sans perte avec ratio modéré (0.27x)
+- Temps de traitement acceptable (0.077s)
+
+**Conclusions de l'analyse :**
 - Les moteurs de recherche par similarité sont robustes à la compression modérée
-- JPEG Q85 offre le meilleur compromis (aucune perte de précision, compression efficace)
-- Les méthodes classiques restent compétitives pour ce cas d'usage
+- Trade-off favorable entre stockage et qualité de recherche
+- Les méthodes classiques restent compétitives face aux approches modernes
+- PNG sans perte optimal pour préserver la qualité de recherche
+
+## Résultats détaillés par méthode
+
+### PNG_Lossless
+- **Ratio compression :** 0.27x
+- **PSNR :** ∞ dB (sans perte)
+- **SSIM :** 1.000
+- **Temps compression :** 0.077s
+- **Précision recherche :** 0.500 (perte : 0.400)
+
+### JPEG_Q85  
+- **Ratio compression :** 1.45x
+- **PSNR :** 39.8 dB
+- **SSIM :** 0.998
+- **Temps compression :** 0.001s
+- **Précision recherche :** 0.400 (perte : 0.500)
+
+### DCT_Q50
+- **Ratio compression :** 0.05x
+- **PSNR :** 31.6 dB
+- **SSIM :** 0.989  
+- **Temps compression :** 4.825s
+- **Précision recherche :** 0.500 (perte : 0.400)
+
+### Haar_T5.0
+- **Ratio compression :** 0.03x
+- **PSNR :** 11.2 dB
+- **SSIM :** 0.297
+- **Temps compression :** 0.068s
+- **Précision recherche :** 0.300 (perte : 0.600)
+
+*Baseline précision : 0.900 | Échantillon : 15 images | 10 requêtes*
 
 ## Fichiers générés
 
