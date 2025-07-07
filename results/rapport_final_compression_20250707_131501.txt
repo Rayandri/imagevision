@@ -1,0 +1,72 @@
+RAPPORT D'ANALYSE - COMPRESSION POUR RECHERCHE D'IMAGES
+============================================================
+Généré: 2025-07-07 13:15:01
+
+CRITÈRES ÉVALUÉS:
+- Cohérence choix approches (2 classiques + 2 modernes)
+- Qualité compression (PSNR, SSIM, ratio)
+- Performance compression (temps)
+- Impact sur recherche d'images
+- Comparaison objective des approches
+
+RÉSULTATS COMPRESSION
+------------------------------
+
+DCT_Q50:
+  • Ratio: 0.05x
+  • PSNR: 31.6 dB
+  • SSIM: 0.989
+  • Temps: 2.680s
+
+Haar_T5.0:
+  • Ratio: 0.03x
+  • PSNR: 11.2 dB
+  • SSIM: 0.297
+  • Temps: 0.011s
+
+JPEG_Q85:
+  • Ratio: 1.45x
+  • PSNR: 39.8 dB
+  • SSIM: 0.998
+  • Temps: 0.001s
+
+PNG_Lossless:
+  • Ratio: 0.27x
+  • PSNR: inf dB
+  • SSIM: 1.000
+  • Temps: 0.028s
+
+IMPACT SUR RECHERCHE D'IMAGES
+-----------------------------------
+
+PNG_Lossless:
+  • Précision baseline: 0.900
+  • Précision compressée: 0.500
+  • Perte précision: 0.400
+
+JPEG_Q85:
+  • Précision baseline: 0.900
+  • Précision compressée: 0.500
+  • Perte précision: 0.400
+
+Haar_T5.0:
+  • Précision baseline: 0.900
+  • Précision compressée: 0.400
+  • Perte précision: 0.500
+
+DCT_Q50:
+  • Précision baseline: 0.900
+  • Précision compressée: 0.600
+  • Perte précision: 0.300
+
+CONCLUSIONS ET RECOMMANDATIONS
+----------------------------------------
+
+MEILLEURE MÉTHODE: DCT_Q50
+• Perte précision minimale: 0.300
+• Précision maintenue: 0.600
+
+ARGUMENTS TECHNIQUES:
+• Moteur recherche robuste à compression modérée
+• Trade-off favorable stockage/qualité recherche
+• Méthodes classiques compétitives vs modernes
