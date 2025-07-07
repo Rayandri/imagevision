@@ -21,7 +21,7 @@ Objectif : Analyser l'impact de différentes méthodes de compression sur un mot
 
 ## Structure du projet
 
-clean_version/
+libs_vision/
     __init__.py
     compression_engine.py
     search_engine.py
@@ -40,7 +40,7 @@ legacy/ (ancien code)
 
 Ou bien, en Python :
 
-    from clean_version import CompressionImpactAnalyzer
+    from libs_vision import CompressionImpactAnalyzer
     analyzer = CompressionImpactAnalyzer(data_path="data")
     results = analyzer.run_complete_analysis(max_images=20, num_queries=10)
     report = analyzer.generate_summary_report(results)
